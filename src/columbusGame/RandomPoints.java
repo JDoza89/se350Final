@@ -20,17 +20,19 @@ public class RandomPoints {
 	}
 	
 	public Point generatePoints() {
-		/* Will return random Points that can be used for islands or pirateShips
+		/*
+		 * Will return random Points that can be used for islands or pirateShips
 		 */
-		islandMap = ocean.getMap(); 
-			/* Creating random ints that are less than the map size, so that we can randomly
-			 * place islands on the map
-			 */
-			xRand = x.nextInt(islandMap.length);      
-			yRand = y.nextInt(islandMap.length);
-			
-				rand = new Point(xRand, yRand);
-				return rand;
-		}
-	
+		islandMap = ocean.getMap();
+		/*
+		 * Creating random ints that are less than the map size, so that we can randomly
+		 * place islands on the map
+		 */
+		xRand = x.nextInt(islandMap.length);
+		yRand = y.nextInt(islandMap.length);
+
+		rand = new Point(xRand, yRand);
+		return rand;
+	}
+
 }

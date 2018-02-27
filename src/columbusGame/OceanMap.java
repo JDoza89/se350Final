@@ -14,12 +14,14 @@ public class OceanMap {
 	int size;
 	int[][] ocean;
 	
+	// construct instance of a map with size.
 	public static OceanMap setInstance(int size) {
 		if(isUnique == null) {
 			isUnique = new OceanMap(size);
 		}
 		return isUnique;
 	}
+	
 	 private OceanMap (int size){
 		 //sets the given size to the size of the map and calls the method that initializes the grid to a sizeXsize grid
 		 this.size = size;

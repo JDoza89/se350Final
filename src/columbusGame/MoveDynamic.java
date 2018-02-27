@@ -1,7 +1,11 @@
 package columbusGame;
 
 public class MoveDynamic implements MoveStrategy{
-
+	Ship cShip;
+	OceanMap ocean;
+	int xCell, yCell;
+	
+	
 	@Override
 	public void moveRight() {
 		// TODO Auto-generated method stub
@@ -25,7 +29,4 @@ public class MoveDynamic implements MoveStrategy{
 		// TODO Auto-generated method stub
 		
 	}
-
-	
-
 }
