@@ -9,6 +9,8 @@ import javafx.scene.image.ImageView;
 
 /**
  * Coin Object
+ * 
+ * 
  */
 public class Coin implements OceanObjects, PowerUp {
 	private OceanMap ocean;
