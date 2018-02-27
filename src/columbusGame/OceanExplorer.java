@@ -82,9 +82,11 @@ public class OceanExplorer extends Application {
 		loadShipImages();
 		
 		/** Pirates **/
-		pirate = new PirateShip(oceanGrid, ship);
+//		pirate = new PirateShip(oceanGrid, ship);
+		pirate = new PirateShip(ship);
 		points.add(pirate.getLocation());
-		pirate2 = new PirateShip(oceanGrid, ship);
+//		pirate2 = new PirateShip(oceanGrid, ship);
+		pirate2 = new PirateShip(ship);
 		points.add(pirate2.getLocation());
 		ship.addObserver(pirate);
 		ship.addObserver(pirate2);

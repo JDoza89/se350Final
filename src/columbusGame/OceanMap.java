@@ -58,7 +58,7 @@ public class OceanMap {
 		return ocean;
 	}
 
-	public OceanMap getInstance() {
+	public static OceanMap getInstance() {
 		return isUnique;
 	}
 }

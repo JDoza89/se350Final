@@ -24,6 +24,7 @@ public class Coin implements OceanObjects, PowerUp {
 
 	/**
 	 * Constructs a coin on the ocean.
+	 * The only reason why has parameters points, cShip and islands is because coin needs to know where those are.
 	 */
 	public Coin(HashSet<Point> points, OceanMap ocean, Ship cShip, OceanExplorer oceanExplorer,  Islands island,
 			PirateShip pirate1, PirateShip pirate2) {
@@ -104,12 +105,10 @@ public class Coin implements OceanObjects, PowerUp {
 	
 	/**
 	 * Resets a pirate's ship image.
+	 * Only when the cShip has touched the coin...
 	 */
-	private void resetPirateImage() {
-		OE.pirateImageView.setImage(null);
-		OE.pirate2ImageView.setImage(null);
-		this.ocean.getMap()[OE.pirate.getLocation().x][OE.pirate.getLocation().y] = 0;
-		this.ocean.getMap()[OE.pirate2.getLocation().x][OE.pirate2.getLocation().y] = 0;
+	private void deleteImageAndPirates() {
+		OE.ship.deleteObservers();	// ships stop observing.
 	}
 	
 	
@@ -118,12 +117,7 @@ public class Coin implements OceanObjects, PowerUp {
 	 * remove them as observers
 	 */
 	private void bombPirates() {
-//		System.out.println(
-//				"Pirate1 location: " + this.pirate.getLocation().getX() + "," + this.pirate.getLocation().getY());
-//		System.out.println(
-//				"Pirate2 location: " + this.pirate2.getLocation().getX() + "," + this.pirate2.getLocation().getY());
-		
-		resetPirateImage();
+		deleteImageAndPirates();
 	}
 
 }
