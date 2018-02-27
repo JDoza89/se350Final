@@ -33,10 +33,11 @@ public class OceanExplorer extends Application {
 	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView;
 	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage;
 	
-	// COIN stuff
+	/** Coin related class variables **/
 	ImageView coinImageView;
 	Image coinImage;
 	Coin coin;
+	/** Coint class stuff end here**/
 	
 	
 	Ship ship;
@@ -49,66 +50,54 @@ public class OceanExplorer extends Application {
 
 	@Override
 	public void start(Stage oceanStage) throws Exception {
-
-		/**
-		 * Creating the initial grid (What you first see)
-		 * 
-		 */
 		oceanGrid = OceanMap.setInstance(dimension);
 		Point startPoint = oceanGrid.getStartPoint();
-
-		// Creating a hashSet to keep track of random points that are used for the
-		// islands and pirateShips, so they are not reused
 		HashSet<Point> points = new HashSet<Point>();
-		// adding the startPoints of the ship to the HashSet so it is not reused
 		points.add(new Point(startPoint.x, startPoint.y));
-		int counter = 0;
 		root = new AnchorPane();
-		// drawing the grid and creating the ship
 		drawGrid();
-
-		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
-		loadShipImages();
-		// creating pirateShips and adding their locations to the hashSet, so they are
-		// not reused
-		pirate = new PirateShip(oceanGrid, ship);
-		ship.addObserver(pirate); // adding the pirateShip as an Observer of the ship
-		points.add(pirate.getLocation());
-		loadPirateImages(); // Loads the image of the pirateShip
-		pirate2 = new PirateShip(oceanGrid, ship);
-		ship.addObserver(pirate2);
-		points.add(pirate2.getLocation());
-		loadPirate2Images();
-
-		while (counter < 10) { // Creating 10 islands at different random points, using the hashSet to make
-			// sure that they are all at different points
+		
+		/** Creates 10 islands. **/
+		int counter = 0;
+		while (counter < 10) {
 			island = new Islands(points, oceanGrid);
 			if (points.contains(island.getLocation()) == false) {
-				island.setPoints();// sets the points to 2, so the ship cannot move there
+				island.setPoints();
 				points.add(island.getLocation());
 				loadIslandImages();
 				counter++;
 			} else {
 				island = new Islands(points, oceanGrid);
-
 			}
-
 		}
-		//OceanMap ocean, Ship ship, PirateShip pShip, Islands island)
-		coin = new Coin(points,oceanGrid);
-		loadCoinImage();
-		
-		
-		// Creating the Scene and calling the startSailing method which controls the
-		// ships movements
-		scene = new Scene(root, 1000, 1000);
 
+		
+		/** Start of Coin object instantiation and stuff. **/
+		coin = new Coin(points, oceanGrid, ship, this, island, this.pirate, this.pirate2);
+		loadCoinImage();
+		/** End of coin related code **/
+		
+		/** Create ship **/
+		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, coin);
+		loadShipImages();
+		
+		/** Pirates **/
+		pirate = new PirateShip(oceanGrid, ship);
+		points.add(pirate.getLocation());
+		pirate2 = new PirateShip(oceanGrid, ship);
+		points.add(pirate2.getLocation());
+		ship.addObserver(pirate);
+		ship.addObserver(pirate2);
+		loadPirateImages();
+		loadPirate2Images();
+		/**---- Pirates ---- **/
+		
+		
+		scene = new Scene(root, 1000, 1000);
 		oceanStage.setTitle("Columbus Game");
 		oceanStage.setScene(scene);
 		oceanStage.show();
-
 		startSailing();
-
 	}
 
 	// Draws the grid and uses Paleturquiose as hte color of the ocean (water)
@@ -191,7 +180,9 @@ public class OceanExplorer extends Application {
 
 	}
 	
-	// COIN IMAGE 
+	/**
+	 * Loads Coin's image.
+	 */
 	private void loadCoinImage() {
 		this.coinImage = new Image("File:src/columbusGame/coin.jpg", scale, scale, true, true);
 		this.coinImageView = new ImageView(this.coinImage);
@@ -202,21 +193,14 @@ public class OceanExplorer extends Application {
 	
 	
 	
+	
+	
+	
+	
 
 	private void startSailing() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-			/**
-			 * This handles the key pressing (cases right, left, down, up == pressing the
-			 * right, left, down, up keypad arrows
-			 * 
-			 */
 			public void handle(KeyEvent ke) {
-				/**
-				 * We are only allowing the player to play the game(or press keys with a
-				 * reaction) if there have been no collisions
-				 * 
-				 */
 				if (ship.getLocation().equals(pirate.getLocation()) == false
 						&& ship.getLocation().equals(pirate2.getLocation()) == false) {
 					switch (ke.getCode()) {
@@ -235,13 +219,7 @@ public class OceanExplorer extends Application {
 					default:
 						break;
 					}
-					/**
-					 * Updating the ImageView of the Columbus ship and pirateShips based on the
-					 * movement of the player the ships locations are changing because of movement
-					 * by the player, the pirateShips are being notified and move as well. we need
-					 * to update the ImageView, where we just set the x and y coordinates to the new
-					 * locations of the ships
-					 */
+
 					shipImageView.setX(ship.getLocation().x * scale);
 					shipImageView.setY(ship.getLocation().y * scale);
 
