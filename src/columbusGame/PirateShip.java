@@ -86,6 +86,10 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 		}
 
 	}
+	
+	public void stop() {
+		
+	}
 
 	public Point getLocation() {
 		// returns the pirateShip's location

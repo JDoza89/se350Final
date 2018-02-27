@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 
 /**
  * Coin Object
- * 
- * 
  */
 public class Coin implements OceanObjects, PowerUp {
 	private OceanMap ocean;
@@ -103,6 +101,7 @@ public class Coin implements OceanObjects, PowerUp {
 		OE.coinImageView.setImage(null); // deletes the coin image.
 		return true;
 	}
+	
 	/**
 	 * Resets a pirate's ship image.
 	 */
