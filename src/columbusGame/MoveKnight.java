@@ -1,31 +1,40 @@
 package columbusGame;
 
-public class MoveToward implements MoveStrategy {
+import java.awt.Point;
 
-	@Override
+public class MoveKnight implements MoveStrategy {
+	
+	OceanMap ocean;
+	int xCell;
+	int yCell;
+	int unitSize;
+	Point shipLocation;
+	Point pirateLocation;
+	RandomPoints rand;
+	
+
+	
 	public void moveRight() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void moveLeft() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void moveUp() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void moveDown() {
 		// TODO Auto-generated method stub
 		
 	}
-
-	
 
 }
