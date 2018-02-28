@@ -16,15 +16,15 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy{
 	RandomPoints rand;
 	Observable observable;
 		
-	public PirateShip(OceanMap ocean, Observable observable) {
+	public PirateShip(Observable observable) {
 		this.observable = observable;
 		observable.addObserver(this);
-		this.ocean = ocean;
+		this.ocean = ocean.getInstance();
 	
-		rand = new RandomPoints(ocean);
+		rand = new RandomPoints();
 		//creates new random points and checks to make sure that they are not the same as the location of ship
 		if(rand.generatePoints() == ((Ship)(observable)).getLocation()) {
-				rand = new RandomPoints(ocean);
+				rand = new RandomPoints();
 			}
 			else {
 				xCell = rand.generatePoints().x;

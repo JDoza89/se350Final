@@ -5,28 +5,25 @@ import java.awt.Point;
 public class Monster implements BadGuys, OceanObjects{
 	int x;
 	int y;
+	OceanMap ocean;
 	
 	@Override
 	public Boolean contains(double x, double y) {
-		// TODO Auto-generated method stub
-		return null;
+		return (this.x == x && this.y == y);
 	}
 
-	@Override
-	public void add() {
-		// TODO Auto-generated method stub
-		
+	
+	public int getX() {
+		return x;
 	}
-
-	@Override
-	public void remove() {
-		// TODO Auto-generated method stub
-		
+	
+	public int getY() {
+		return y;
 	}
 
 	public Point move() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new Point(this.x, this.y);
 	}
 
 	public Point getLocation() {

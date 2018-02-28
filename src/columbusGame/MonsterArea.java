@@ -6,27 +6,26 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class MonsterArea implements BadGuys, OceanObjects{
+public class MonsterArea implements BadGuys{
 	ArrayList<Monster> monsters;
 	double x, y, width, height;
 	Rectangle area;
 	Color color;
 	OceanMap ocean;
 	
-	public MonsterArea(double x, double y) {
-		this(x, y, 5, 5);
-	}
+	/*public MonsterArea(double x, double y) {
+		this(x,y,ocean);
+	}*/
 	
-	public MonsterArea(double x, double y, double width, double height){
+	public MonsterArea(double x, double y, OceanMap ocean) {
+		// TODO Auto-generated method stub
+		
 		ocean = ocean.getInstance();
 	    monsters = new ArrayList<>();
-	    RandomPoints p = new RandomPoints(ocean);
-	    Point point = p.generatePoints();
-	    x = point.getX();
-	    y = point.getY();
+	    
 	    
 	    for(int i = (int)x; x< 10; x++) {
-	    	for(int j = (int)y; y < 5; y++) {
+	    	for(int j = (int)y; y < 10; y++) {
 	    	ocean.setPoint(i, j, 2, Color.RED);
 	    	}
 	    }
@@ -45,25 +44,18 @@ public class MonsterArea implements BadGuys, OceanObjects{
 		return false;
 	}
 
-	@Override
-	public void add() {
-		// TODO Auto-generated method stub
+	public void add(Monster monster) {
+		monsters.add(monster);
+		ocean.getInstance().setPoint(monster.getX(), monster.getY(), 2);
 		
 	}
 
-	@Override
 	public void remove() {
-		// TODO Auto-generated method stub
+		monsters.remove(monsters.get(monsters.size()-1));
 		
 	}
 
-	@Override
-	public Point getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public Rectangle getArea() {
-		return area;
-	}
+	
+	
 
 }

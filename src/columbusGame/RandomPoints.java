@@ -14,8 +14,8 @@ public class RandomPoints {
 	int[][] islandMap;
 
 	
-	public RandomPoints(OceanMap ocean) {
-	    this.ocean = ocean;
+	public RandomPoints() {
+	    this.ocean = ocean.getInstance();
 		
 	}
 	

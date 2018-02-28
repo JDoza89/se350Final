@@ -32,8 +32,8 @@ public class OceanExplorer extends Application{
 	final int scale = 50; // Scale everything by 50
 	Scene scene;                                                                     //Instantiating all variables that will be used in this class
 	AnchorPane root;
-	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView;
-	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage;
+	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView, foodImageView, snakeImageView, bodyImageView;
+	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage, foodImage, snakeImage, bodyImage;
 	Ship ship;
 	Islands island;
 	PirateShip pirate, pirate2;
@@ -41,8 +41,8 @@ public class OceanExplorer extends Application{
 	Button button;
 	Point r;
 	MonsterArea area;
-	
-
+	Food food;
+	SnakeHead snakeHead;
 	
 	    @Override
 	 	public void start(Stage oceanStage) throws Exception {
@@ -52,7 +52,7 @@ public class OceanExplorer extends Application{
 	    	 */
 	    	oceanGrid = OceanMap.setInstance(dimension);
 	    	Point startPoint = oceanGrid.getStartPoint();
-	    	
+	    	area = new MonsterArea(1,2,oceanGrid);
 	    	
 	    
 	    	// Creating a hashSet to keep track of random points that are used for the islands and pirateShips, so they are not reused
@@ -67,29 +67,36 @@ public class OceanExplorer extends Application{
 	    	ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
 	    	loadShipImages();
 	    	//creating pirateShips and adding their locations to the hashSet, so they are not reused
-	      	pirate = new PirateShip(oceanGrid, ship);
+	      	pirate = new PirateShip(ship);
 	      	ship.addObserver(pirate);    //adding the pirateShip as an Observer of the ship
 	      	points.add(pirate.getLocation());
 	    	loadPirateImages();       //Loads the image of the pirateShip
-	    	pirate2 = new PirateShip(oceanGrid, ship);
+	    	pirate2 = new PirateShip(ship);
 	      	ship.addObserver(pirate2);
 	      	points.add(pirate2.getLocation());
 	    	loadPirate2Images();
 	    	
 	    	while(counter < 10) {  //Creating 10 islands at different random points, using the hashSet to make sure that they are all at different points
-	    		island = new Islands(points, oceanGrid);
+	    		island = new Islands(points);
 	    		if(points.contains(island.getLocation()) == false) {
-	    			island.setPoints();//sets the points to 2, so the ship cannot move there
 	    			points.add(island.getLocation());
 	    			loadIslandImages();
 	    			counter++;
 	    	}
 	    		else {
-	    			island = new Islands(points, oceanGrid);
+	    			island = new Islands(points);
 	    			
 	    		}
 	    			
 	    		}
+	    	while(counter < 20) {
+	    		food = new Food();
+	    		if(points.contains(food.getLocation()) == false) {
+	    			points.add(food.getLocation());
+	    			loadFishImages();
+	    			counter++;
+	    		}
+	    	}
 	    	//Creating the Scene and calling the startSailing method which controls the ships movements
     		
 	    	scene = new Scene(root, 1000, 1000);
@@ -115,6 +122,21 @@ public class OceanExplorer extends Application{
 	   	    }
 	   	    }
 	 //loads ship image and scales it to size
+	 
+	 private void loadFishImages(){
+		 foodImage = new Image("\\fish.jpg", scale, scale, true, true);
+		 foodImageView = new ImageView(foodImage);
+		 foodImageView.setX(food.getLocation().x * scale); 
+		 foodImageView.setY(food.getLocation().y * scale); 
+		 root.getChildren().add(foodImageView);
+	 }
+	 private void loadSnakeImages(){
+		 snakeImage = new Image("\\snakeHead.PNG", scale, scale, true, true);
+		 snakeImageView = new ImageView(snakeImage);
+		 snakeImageView.setX(snakeHead.getLocation().x * scale); 
+		 snakeImageView.setY(snakeHead.getLocation().y * scale); 
+		 root.getChildren().add(snakeImageView);
+	 }
 	 private void loadShipImages() {
 		 shipImage = new Image("\\ship.png", scale, scale, true, true);
 		 shipImageView = new ImageView(shipImage);
