@@ -3,6 +3,7 @@ package columbusGame;
 import java.awt.Point;
 
 public class MoveKnight implements MoveStrategy {
+	//This is gonna be the hardest to implement
 	
 	OceanMap ocean;
 	int xCell;

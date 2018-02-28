@@ -3,6 +3,7 @@ package columbusGame;
 import java.awt.Point;
 
 public class MoveRook implements MoveStrategy{
+	//This should move Pirate ships 3 places 
 	
 	OceanMap ocean;
 	int xCell;
