@@ -99,7 +99,7 @@ public class OceanExplorer extends Application{
     		
 	    	scene = new Scene(root, 1000, 1000);
 
-	    	oceanStage.setTitle("Columbus Game");
+	    	oceanStage.setTitle("~~Columbus Sails the Ocean Blue~~");
 	    	oceanStage.setScene(scene);
 	    	oceanStage.show();
 	    	
