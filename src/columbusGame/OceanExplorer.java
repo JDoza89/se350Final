@@ -73,15 +73,21 @@ public class OceanExplorer extends Application{
 	      	ship.addObserver(pirate);    //adding the pirateShip as an Observer of the ship
 	      	points.add(pirate.getLocation());
 	    	loadPirateImages();       //Loads the image of the pirateShip
+<<<<<<< HEAD
 	    	pirate2 = new PirateShip(ship);
 
 	      	pirate = PirateShipFactory.getPirateShip("pirate1");
+=======
+	    	//pirate2 = new PirateShip(ship);
+
+	      	//pirate = PirateShipFactory.getPirateShip("pirate1");
+>>>>>>> 05dd24ab74fa9bbfcabb0f9889b28e665bfa1265
 	    
 	      	ship.addObserver(pirate);    //adding the pirateShip as an Observer of the ship
 	      	points.add(pirate.getLocation());
 	    	loadPirateImages();       //Loads the image of the pirateShip
 	    	
-	    	pirate2 = PirateShipFactory.getPirateShip("pirate2");
+	    	//pirate2 = PirateShipFactory.getPirateShip("pirate2");
 	    	
 
 	      	ship.addObserver(pirate2);
