@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import java.util.HashSet;
 import java.util.Iterator;
 
+//added this for cams branch
 
 public class OceanExplorer extends Application{
 	 
@@ -67,12 +68,16 @@ public class OceanExplorer extends Application{
 	    	ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
 	    	loadShipImages();
 	    	//creating pirateShips and adding their locations to the hashSet, so they are not reused
-	      	pirate = new PirateShip(oceanGrid, ship);
+	      	pirate = PirateShipFactory.getPirateShip("pirate1");
+	    
 	      	ship.addObserver(pirate);    //adding the pirateShip as an Observer of the ship
 	      	points.add(pirate.getLocation());
 	    	loadPirateImages();       //Loads the image of the pirateShip
-	    	pirate2 = new PirateShip(oceanGrid, ship);
+	    	
+	    	pirate2 = PirateShipFactory.getPirateShip("pirate2");
+	    	
 	      	ship.addObserver(pirate2);
+	      	
 	      	points.add(pirate2.getLocation());
 	    	loadPirate2Images();
 	    	
