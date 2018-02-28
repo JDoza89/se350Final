@@ -6,39 +6,35 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-public class PirateShip implements Observer, OceanObjects, MoveStrategy{
+public class PirateShip  implements Observer, OceanObjects, MoveStrategy {
 	OceanMap ocean;
 	int xCell;
 	int yCell;
 	int unitSize;
 	Point shipLocation;
 	Point pirateLocation;
-	RandomPoints rand;
+	Random rand;
 	Observable observable;
 		
-	public PirateShip(OceanMap ocean, Observable observable) {
-		this.observable = observable;
-		observable.addObserver(this);
-		this.ocean = ocean;
-	
-		rand = new RandomPoints(ocean);
-		//creates new random points and checks to make sure that they are not the same as the location of ship
-		if(rand.generatePoints() == ((Ship)(observable)).getLocation()) {
-				rand = new RandomPoints(ocean);
-			}
-			else {
-				xCell = rand.generatePoints().x;
-				yCell = rand.generatePoints().y;
-		
-			}
+	public PirateShip() {
+		this.ocean = ocean.getInstance();
+		pirateLocation = setPiratelocation();
 		setPoints();
 		}
 		
 		public void setPoints() {
-			    		//setting the coordinate to 3 which will symbolize islands
-				ocean.setPoint(xCell, yCell, 3);
-			   	 
+			xCell= (int) pirateLocation.getX();
+			yCell = (int) pirateLocation.getY();
+			ocean.setPoint(xCell, yCell, 3);
 		}
+		
+		public Point setPiratelocation(){
+			pirateLocation = new Point(12,12);
+			return pirateLocation;
+		}
+		
+		
+		
 		//Checks to see if the next index is 0 so that the ship can move, cannot move if the index == 2 or 3, (pirateShip or island) and catches the outBoundsException
 		//the ship cannot go off the grid
 		public void moveRight() {
@@ -135,6 +131,7 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy{
 			//sets the point on the grid to 3 
 			ocean.setPoint(xCell, yCell, 3);
 		}
+
 		}
 		
 		

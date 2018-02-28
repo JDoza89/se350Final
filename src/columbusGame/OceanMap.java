@@ -49,7 +49,7 @@ public class OceanMap {
 	public int[][] getMap(){
 		 return ocean; 
 		}
-	public OceanMap getInstance() {
+	public static OceanMap getInstance() {
 		return isUnique;
 	}
 }
