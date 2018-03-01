@@ -2,7 +2,6 @@ package columbusGame;
 
 import java.awt.Point;
 import java.util.Observable;
-import java.util.Observer;
 
 public class Ship extends Observable implements OceanObjects {// extends the Observable built in, so that the
 																// pirateSHips can observe the ship's movement and react
@@ -14,19 +13,20 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 	PirateShip pirate;
 	
 	
-	Coin coin;	//ship needs to know about coin?
+	YellowCoin coin;	//ship needs to know about coin?
+	RedCoin laserCoin;
 
 	/* New: coin parameter.*/
-	public Ship(int xCell, int yCell, int unitSize, OceanMap ocean, Coin coin) {
+	public Ship(int xCell, int yCell, int unitSize, OceanMap ocean, YellowCoin coin, RedCoin laserCoin) {
 		this.xCell = xCell;
 		this.yCell = yCell;
 		this.unitSize = unitSize;
 		this.ocean = ocean;
 		this.coin = coin;	// this is new
+		this.laserCoin = laserCoin;
 	}
 
-	public void movementChanged() { // Sets the changes and notifies oberservers of the the changes (calls update on
-									// the oberver)
+	public void movementChanged() {
 		setChanged();
 		notifyObservers();
 	}
@@ -41,7 +41,7 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 			if (ocean.getMap()[xCell + 1][yCell] == 0) {
 				xCell++;	
 			}
-			touchedCoin();
+			touchedCoins();
 		} 
 		catch (IndexOutOfBoundsException e) {
 
@@ -55,7 +55,7 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 			if (ocean.getMap()[xCell - 1][yCell] == 0) {
 				xCell--;
 			}
-			touchedCoin();
+			touchedCoins();
 		} catch (IndexOutOfBoundsException e) {
 
 		}
@@ -67,7 +67,7 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 			if (ocean.getMap()[xCell][yCell - 1] == 0) {
 				yCell--;
 			}
-			touchedCoin();
+			touchedCoins();
 		} catch (IndexOutOfBoundsException e) {
 
 		}
@@ -76,18 +76,16 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 	}
 
 	public void moveDown() {
-
 		try {
 			if(ocean.getMap()[xCell][yCell + 1] == 0) {
 				yCell++;
 			}
-			touchedCoin();
+			touchedCoins();
 			
 		} catch (IndexOutOfBoundsException e) {
 
 		}
 		movementChanged();
-
 	}
 
 	public Point getLocation() {
@@ -100,9 +98,11 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 	/**
 	 * Helper function to see after touched.
 	 */
-	private void touchedCoin() {
-		if (this.getLocation().equals(coin.getLocation()))
+	private void touchedCoins() {
+		if (this.getLocation().equals(coin.getLocation())) {
 			coin.levelUp();
+		} else if (this.getLocation().equals(laserCoin.getLocation())) {
+			laserCoin.levelUp();
+		}
 	}
-
 }

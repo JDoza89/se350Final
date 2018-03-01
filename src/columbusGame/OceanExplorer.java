@@ -1,10 +1,5 @@
 package columbusGame;
-
-import java.util.Observable;
-import java.util.Observer;
-import javafx.scene.text.Font;
 import java.awt.Point;
-import java.util.ArrayList;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -13,30 +8,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.HashSet;
-import java.util.Iterator;
 
 public class OceanExplorer extends Application {
 
 	OceanMap oceanGrid;
 	int[][] islandMap;
 	final int dimension = 20; // We are creating 10X10 maps
-	final int scale = 50; // Scale everything by 50
+	final int scale = 35; // Scale everything by 50
 	Scene scene; // Instantiating all variables that will be used in this class
 	AnchorPane root;
 	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView;
 	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage;
 	
 	/** Coin related class variables **/
-	ImageView coinImageView;
-	Image coinImage;
-	Coin coin;
+	ImageView yellowCoinImageView, redCoinImageView;
+	Image yellowCoinImage, redCoinImage;
+	YellowCoin stopCoin;
+	RedCoin laserCoin;
 	/** Coint class stuff end here**/
 	
 	
@@ -47,12 +39,16 @@ public class OceanExplorer extends Application {
 	Button button;
 	Point r;
 	MonsterArea area;
+	
+
+	HashSet<Point> points;
 
 	@Override
 	public void start(Stage oceanStage) throws Exception {
 		oceanGrid = OceanMap.setInstance(dimension);
 		Point startPoint = oceanGrid.getStartPoint();
-		HashSet<Point> points = new HashSet<Point>();
+//		HashSet<Point> points = new HashSet<Point>();
+		points = new HashSet<Point>();	// changed to this
 		points.add(new Point(startPoint.x, startPoint.y));
 		root = new AnchorPane();
 		drawGrid();
@@ -73,29 +69,34 @@ public class OceanExplorer extends Application {
 
 		
 		/** Start of Coin object instantiation and stuff. **/
-		coin = new Coin(points, oceanGrid, ship, this, island, this.pirate, this.pirate2);
+		laserCoin = new RedCoin(points, oceanGrid, ship, this, island, pirate, pirate2);
+		stopCoin = new YellowCoin(points, oceanGrid, ship, this, island, pirate, pirate2, laserCoin);
+		points.add(stopCoin.getLocation());
+		points.add(laserCoin.getLocation());
 		loadCoinImage();
+		loadRedCoinImage();
 		/** End of coin related code **/
 		
+		
+		
+		
+		
 		/** Create ship **/
-		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, coin);
+		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, stopCoin, laserCoin);
 		loadShipImages();
 		
 		/** Pirates **/
-//		pirate = new PirateShip(oceanGrid, ship);
 		pirate = new PirateShip(ship);
 		points.add(pirate.getLocation());
-//		pirate2 = new PirateShip(oceanGrid, ship);
 		pirate2 = new PirateShip(ship);
 		points.add(pirate2.getLocation());
 		ship.addObserver(pirate);
 		ship.addObserver(pirate2);
 		loadPirateImages();
 		loadPirate2Images();
-		/**---- Pirates ---- **/
 		
 		
-		scene = new Scene(root, 1000, 1000);
+		scene = new Scene(root, 700, 700);
 		oceanStage.setTitle("Columbus Game");
 		oceanStage.setScene(scene);
 		oceanStage.show();
@@ -183,23 +184,27 @@ public class OceanExplorer extends Application {
 	}
 	
 	/**
-	 * Loads Coin's image.
+	 * Loads yellow Coin's image.
 	 */
 	private void loadCoinImage() {
-		this.coinImage = new Image("File:src/columbusGame/coin.jpg", scale, scale, true, true);
-		this.coinImageView = new ImageView(this.coinImage);
-		this.coinImageView.setX(coin.getLocation().x * scale);
-		this.coinImageView.setY(coin.getLocation().y * scale);
-		root.getChildren().add(coinImageView);
+		yellowCoinImage = new Image("File:src/columbusGame/yellowCoin.png", scale, scale, true, true);
+		yellowCoinImageView = new ImageView(yellowCoinImage);
+		yellowCoinImageView.setX(stopCoin.getLocation().x * scale);
+		yellowCoinImageView.setY(stopCoin.getLocation().y * scale);
+		root.getChildren().add(yellowCoinImageView);
+	}
+	/**
+	 * Loads red coin's image
+	 */
+	private void loadRedCoinImage() {
+		redCoinImage = new Image("File:src/columbusGame/redCoin.png", scale, scale, true, true);
+		redCoinImageView = new ImageView(redCoinImage);
+		redCoinImageView.setX(laserCoin.getLocation().x * scale);
+		redCoinImageView.setY(laserCoin.getLocation().y * scale);
+		root.getChildren().add(redCoinImageView);
 	}
 	
 	
-	
-	
-	
-	
-	
-
 	private void startSailing() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {

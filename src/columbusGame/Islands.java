@@ -22,7 +22,6 @@ public class Islands implements OceanObjects {
 			xCell = rand.generatePoints().x;
 			yCell = rand.generatePoints().y;
 		}
-
 	}
 
 	public void setPoints() {

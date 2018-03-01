@@ -18,7 +18,8 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 	public PirateShip(Observable observable) {
 		this.observable = observable;
 		observable.addObserver(this);
-		this.ocean = ocean.getInstance();
+//		this.ocean = ocean.getInstance();
+		this.ocean = OceanMap.getInstance();	// CHANGED TO THIS.
 
 		rand = new RandomPoints(ocean);
 		// creates new random points and checks to make sure that they are not the same
@@ -87,10 +88,7 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 
 	}
 	
-	public void stop() {
-		
-	}
-
+	
 	public Point getLocation() {
 		// returns the pirateShip's location
 		return new Point(xCell, yCell);
@@ -104,15 +102,12 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 		if (obs instanceof Ship) {
 			shipLocation = ((Ship) obs).getLocation();
 			ocean.setPoint(xCell, yCell, 0);
-			movePirate();
+//			movePirate();
 		}
-
 	}
 
 	public void movePirate() {
-
 		Random r = new Random();
-
 		if (r.nextInt(2) == 1) {// Slows down the movement of the pirateShip
 
 			// Moves the pirate Ship based on its location in terms of the ship's location,

@@ -1,11 +1,7 @@
 package columbusGame;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.Random;
-
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 public class OceanMap {
