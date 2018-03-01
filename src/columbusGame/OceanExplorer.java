@@ -22,6 +22,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.io.File;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.nio.file.Paths;
+import java.net.URL;
 
 //added this for cams branch
 
@@ -30,7 +35,7 @@ public class OceanExplorer extends Application{
 	OceanMap oceanGrid;
 	int[][] islandMap;
 	final int dimension = 20; // We are creating 10X10 maps
-	final int scale = 50; // Scale everything by 50
+	final int scale = 32; // Scale everything by 50
 	Scene scene;                                                                     //Instantiating all variables that will be used in this class
 	AnchorPane root;
 	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView;
@@ -42,6 +47,8 @@ public class OceanExplorer extends Application{
 	Button button;
 	Point r;
 	MonsterArea area;
+	PirateShipFactory pirateShipFactory;
+
 	
 
 	
@@ -54,7 +61,9 @@ public class OceanExplorer extends Application{
 	    	oceanGrid = OceanMap.setInstance(dimension);
 	    	Point startPoint = oceanGrid.getStartPoint();
 	    	
-	    	
+	    	//Media media = new Media("\\Retro2 120.wav");
+	    	//MediaPlayer mediaPlayer = new MediaPlayer(media);
+	    	//mediaPlayer.play();
 	    
 	    	// Creating a hashSet to keep track of random points that are used for the islands and pirateShips, so they are not reused
 	    	HashSet<Point> points = new HashSet<Point>();
@@ -68,13 +77,14 @@ public class OceanExplorer extends Application{
 	    	ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
 	    	loadShipImages();
 	    	//creating pirateShips and adding their locations to the hashSet, so they are not reused
-	      	pirate = PirateShipFactory.getPirateShip("pirate1");
+	    	
+	      	pirate = pirateShipFactory.getPirateShip("pirate1");
 	    
 	      	ship.addObserver(pirate);    //adding the pirateShip as an Observer of the ship
 	      	points.add(pirate.getLocation());
 	    	loadPirateImages();       //Loads the image of the pirateShip
 	    	
-	    	pirate2 = PirateShipFactory.getPirateShip("pirate2");
+	    	pirate2 = pirateShipFactory.getPirateShip("pirate2");
 	    	
 	      	ship.addObserver(pirate2);
 	      	
@@ -82,7 +92,7 @@ public class OceanExplorer extends Application{
 	    	loadPirate2Images();
 	    	
 	    	while(counter < 10) {  //Creating 10 islands at different random points, using the hashSet to make sure that they are all at different points
-	    		island = new Islands(points, oceanGrid);
+	    		island = new Islands(points);
 	    		if(points.contains(island.getLocation()) == false) {
 	    			island.setPoints();//sets the points to 2, so the ship cannot move there
 	    			points.add(island.getLocation());
@@ -90,14 +100,14 @@ public class OceanExplorer extends Application{
 	    			counter++;
 	    	}
 	    		else {
-	    			island = new Islands(points, oceanGrid);
+	    			island = new Islands(points);
 	    			
 	    		}
 	    			
 	    		}
 	    	//Creating the Scene and calling the startSailing method which controls the ships movements
     		
-	    	scene = new Scene(root, 1000, 1000);
+	    	scene = new Scene(root, 650, 650);
 
 	    	oceanStage.setTitle("Columbus Game");
 	    	oceanStage.setScene(scene);
@@ -119,6 +129,8 @@ public class OceanExplorer extends Application{
 			  }
 	   	    }
 	   	    }
+	 
+
 	 //loads ship image and scales it to size
 	 private void loadShipImages() {
 		 shipImage = new Image("\\ship.png", scale, scale, true, true);

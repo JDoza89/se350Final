@@ -11,10 +11,10 @@ public class Islands implements OceanObjects{
 	RandomPoints rand;
 	
 	
-	public Islands(HashSet<Point> p, OceanMap ocean) {
+	public Islands(HashSet<Point> p) {
 		//creates new Points (islands) based on the passed HashSet
 		//makes sure that the points are not already in use by another object
-		this.ocean = ocean;
+		this.ocean = ocean.getInstance();
 		rand = new RandomPoints(ocean);
 			if(p.contains(rand.generatePoints()) == true) {
 				rand = new RandomPoints(ocean);
