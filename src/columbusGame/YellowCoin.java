@@ -21,11 +21,23 @@ public class YellowCoin implements OceanObjects, PowerUp {
 	PirateShip pirate2;
 	RedCoin laserCoin;
 	
-	
+	/**
+	 * Empty constructor.
+	 */
 	public YellowCoin() {
 		
 	}
-	
+	/**
+	 * YellowCoin needs to know about the location of all these:
+	 * @param points
+	 * @param ocean
+	 * @param cShip
+	 * @param oceanExplorer
+	 * @param island
+	 * @param pirate1
+	 * @param pirate2
+	 * @param laserCoin
+	 */
 	public YellowCoin(HashSet<Point> points, OceanMap ocean, Ship cShip, OceanExplorer oceanExplorer, Islands island,
 			PirateShip pirate1, PirateShip pirate2, RedCoin laserCoin) {
 		this.laserCoin = laserCoin;
@@ -42,14 +54,13 @@ public class YellowCoin implements OceanObjects, PowerUp {
 			xCell = rand.generatePoints().x;
 			yCell = rand.generatePoints().y;
 		}
-		// System.out.println("Coin constructed at:" + xCell + "," + yCell);
 	}
 	
 	
 
 	/**
 	 * This is called when the ship touches the coin and after some time it
-	 * creates a coin in another cell within the grid.
+	 * creates another yellow coin in another cell on the grid.
 	 */
 	private void createYellowCoins() {
 		try {
@@ -63,7 +74,7 @@ public class YellowCoin implements OceanObjects, PowerUp {
 		xCell = rand.generatePoints().x;
 		yCell = rand.generatePoints().y;
 		this.getLocation().setLocation(xCell, yCell);
-		/* Generate new points if it xCell,Ycell == island or redcoin.*/
+		
 		if(this.getLocation().equals(islandLoc) || this.getLocation().equals(redCoin)) {
 			xCell = rand.generatePoints().x;
 			yCell = rand.generatePoints().y;
@@ -72,7 +83,6 @@ public class YellowCoin implements OceanObjects, PowerUp {
 			this.getLocation().setLocation(xCell, yCell);
 		}
 		
-//		System.out.println("New coin created here: " + this.getLocation().getX() + "," + this.getLocation().getY());
 		OE.yellowCoinImage = new Image("File:src/columbusGame/yellowCoin.png", OE.scale, OE.scale, true, true);
 		OE.yellowCoinImageView = new ImageView(OE.yellowCoinImage);
 		OE.yellowCoinImageView.setX(this.getLocation().getX() * OE.scale);
@@ -94,7 +104,6 @@ public class YellowCoin implements OceanObjects, PowerUp {
 	public void levelUp() {
 		if (resetCoinImage()) {
 			stopPirates();
-			// more here?
 		}
 		createYellowCoins(); // after leveling up this is called
 	}
@@ -109,8 +118,7 @@ public class YellowCoin implements OceanObjects, PowerUp {
 	
 	
 	/**
-	 * Funtion that destroys pirate ships.
-	 * remove them as observers
+	 * Function that deletes the observers/stop pirate ships.
 	 */
 	private void stopPirates() {
 		OE.ship.deleteObservers();

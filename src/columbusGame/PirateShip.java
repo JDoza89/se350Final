@@ -102,7 +102,7 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 		if (obs instanceof Ship) {
 			shipLocation = ((Ship) obs).getLocation();
 			ocean.setPoint(xCell, yCell, 0);
-//			movePirate();
+			movePirate();
 		}
 	}
 

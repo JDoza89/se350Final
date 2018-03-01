@@ -21,6 +21,16 @@ public class RedCoin implements OceanObjects, PowerUp{
 	PirateShip pirate;
 	PirateShip pirate2;
 	
+	/**
+	 * RedCoin object needs to know the location of all these:
+	 * @param points
+	 * @param ocean
+	 * @param cShip
+	 * @param oceanExplorer
+	 * @param island
+	 * @param pirate
+	 * @param pirate2
+	 */
 	public RedCoin(HashSet<Point> points, OceanMap ocean, Ship cShip, OceanExplorer oceanExplorer, Islands island,
 			PirateShip pirate, PirateShip pirate2) {
 		this.ocean = ocean;
@@ -37,13 +47,15 @@ public class RedCoin implements OceanObjects, PowerUp{
 			yCell = rand.generatePoints().y;
 		}
 	}
-	
+	/**
+	 * Empty constructor
+	 */
 	public RedCoin() {
 		
 	}
 	
 	/**
-	 * Create RedCoins
+	 * Create RedCoins on the grid.
 	 */
 	private void createRedCoins() {
 		try {
@@ -63,8 +75,7 @@ public class RedCoin implements OceanObjects, PowerUp{
 		} else {
 			this.getLocation().setLocation(xCell, yCell);
 		}
-
-		System.out.println("RedCoin created at: " + this.getLocation().getX() + "," + this.getLocation().getY());
+		
 		OE.redCoinImage = new Image("File:src/columbusGame/redCoin.png", OE.scale, OE.scale, true, true);
 		OE.redCoinImageView = new ImageView(OE.redCoinImage);
 		OE.redCoinImageView.setX(this.getLocation().getX() * OE.scale);
@@ -78,7 +89,7 @@ public class RedCoin implements OceanObjects, PowerUp{
 	@Override
 	public void levelUp() {
 		if (resetCoinImage()) {
-
+			
 		}
 		createRedCoins();
 	}
@@ -94,7 +105,7 @@ public class RedCoin implements OceanObjects, PowerUp{
 	
 
 	/**
-	 * Resets the coin image
+	 * Resets the red coin image
 	 */
 	private boolean resetCoinImage() {
 		OE.redCoinImageView.setImage(null); // deletes the coin image.
