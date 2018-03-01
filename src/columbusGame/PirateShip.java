@@ -6,7 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 
-public class PirateShip implements Observer, OceanObjects, MoveStrategy{
+public class PirateShip implements Observer, OceanObjects {
 	OceanMap ocean;
 	int xCell;
 	int yCell;
@@ -16,14 +16,13 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy{
 	RandomPoints rand;
 	Observable observable;
 		
-	public PirateShip(Observable observable) {
-		this.observable = observable;
-		observable.addObserver(this);
+	public PirateShip() {
+
 		this.ocean = ocean.getInstance();
 	
 		rand = new RandomPoints();
 		//creates new random points and checks to make sure that they are not the same as the location of ship
-		if(rand.generatePoints() == ((Ship)(observable)).getLocation()) {
+		if(rand == (rand)) {
 				rand = new RandomPoints();
 			}
 			else {
@@ -36,7 +35,7 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy{
 		
 		public void setPoints() {
 			    		//setting the coordinate to 3 which will symbolize islands
-				ocean.setPoint(xCell, yCell, 3);
+				ocean.setPoint(12, 12, 3);
 			   	 
 		}
 		//Checks to see if the next index is 0 so that the ship can move, cannot move if the index == 2 or 3, (pirateShip or island) and catches the outBoundsException
@@ -135,6 +134,7 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy{
 			//sets the point on the grid to 3 
 			ocean.setPoint(xCell, yCell, 3);
 		}
+
 		}
 		
 		

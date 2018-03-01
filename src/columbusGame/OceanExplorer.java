@@ -3,6 +3,8 @@ package columbusGame;
 
 import java.util.Observable;
 import java.util.Observer;
+
+
 import javafx.scene.text.Font;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -42,8 +44,10 @@ public class OceanExplorer extends Application{
 	Button button;
 	Point r;
 	MonsterArea area;
-	Food food;
+	//Food food;
 	SnakeHead snakeHead;
+	MoveStrategy searchStrategy;
+	PirateShipFactory pirateShipFactory;
 	
 	    @Override
 	 	public void start(Stage oceanStage) throws Exception {
@@ -69,28 +73,28 @@ public class OceanExplorer extends Application{
 	    	loadShipImages();
 	    	//creating pirateShips and adding their locations to the hashSet, so they are not reused
 
-	      	pirate = new PirateShip(ship);
+	    	pirate = pirateShipFactory.getPirateShip("pirate1");
+
 	      	ship.addObserver(pirate);    //adding the pirateShip as an Observer of the ship
 	      	points.add(pirate.getLocation());
 	    	loadPirateImages();       //Loads the image of the pirateShip
-<<<<<<< HEAD
-	    	pirate2 = new PirateShip(ship);
 
-	      	pirate = PirateShipFactory.getPirateShip("pirate1");
-=======
+	    	pirate2 =pirateShipFactory.getPirateShip("pirate2");
+
+	      	
 	    	//pirate2 = new PirateShip(ship);
 
 	      	//pirate = PirateShipFactory.getPirateShip("pirate1");
->>>>>>> 05dd24ab74fa9bbfcabb0f9889b28e665bfa1265
+
 	    
-	      	ship.addObserver(pirate);    //adding the pirateShip as an Observer of the ship
+	      	ship.addObserver(pirate2);    //adding the pirateShip as an Observer of the ship
 	      	points.add(pirate.getLocation());
 	    	loadPirateImages();       //Loads the image of the pirateShip
 	    	
 	    	//pirate2 = PirateShipFactory.getPirateShip("pirate2");
 	    	
 
-	      	ship.addObserver(pirate2);
+	      	
 	      	
 	      	points.add(pirate2.getLocation());
 	    	loadPirate2Images();
@@ -108,14 +112,7 @@ public class OceanExplorer extends Application{
 	    		}
 	    			
 	    		}
-	    	while(counter < 20) {
-	    		food = new Food();
-	    		if(points.contains(food.getLocation()) == false) {
-	    			points.add(food.getLocation());
-	    			loadFishImages();
-	    			counter++;
-	    		}
-	    	}
+	
 	    	//Creating the Scene and calling the startSailing method which controls the ships movements
     		
 	    	scene = new Scene(root, 1000, 1000);
@@ -141,7 +138,7 @@ public class OceanExplorer extends Application{
 	   	    }
 	   	    }
 	 //loads ship image and scales it to size
-	 
+	 /*
 	 private void loadFishImages(){
 		 foodImage = new Image("\\fish.jpg", scale, scale, true, true);
 		 foodImageView = new ImageView(foodImage);
@@ -149,6 +146,7 @@ public class OceanExplorer extends Application{
 		 foodImageView.setY(food.getLocation().y * scale); 
 		 root.getChildren().add(foodImageView);
 	 }
+	 */
 	 private void loadSnakeImages(){
 		 snakeImage = new Image("\\snakeHead.PNG", scale, scale, true, true);
 		 snakeImageView = new ImageView(snakeImage);
@@ -261,6 +259,16 @@ public class OceanExplorer extends Application{
     	pirate2ImageView.setY(pirate2.getLocation().y*scale);
     	
 			}
+
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			/**Here we check to see if there has been a collision.
 			 * If there has been, we load the ExplosionImages, which changes the shipImageView and pirateShipImageView to an explosion
 			 */
@@ -276,8 +284,7 @@ public class OceanExplorer extends Application{
 		 
 	    	
 	 }
-	 
-	
+
 	 
 	 
 	public static void main(String[] args) {

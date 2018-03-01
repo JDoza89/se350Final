@@ -9,7 +9,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
 public class OceanMap {
-	private static OceanMap isUnique;
+	public static OceanMap isUnique;
  
 	int size;
 	int[][] ocean;

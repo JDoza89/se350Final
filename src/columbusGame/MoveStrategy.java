@@ -1,8 +1,7 @@
 package columbusGame;
 
+import java.awt.Point;
+
 public interface MoveStrategy {
-	public void moveRight();
-	public void moveLeft();
-	public void moveUp();
-	public void moveDown();
+	public void movement(PirateShip ship, Point loc);
 }

@@ -7,8 +7,8 @@ public class PirateShip2 extends PirateShip {
 
 
 	
-	public PirateShip2(Observable observable) {
-		super(observable);
+	public PirateShip2() {
+		
 		// TODO Auto-generated constructor stub
 	}
 

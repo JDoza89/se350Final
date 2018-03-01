@@ -9,10 +9,10 @@ public class PirateShipFactory {
 	public static PirateShip getPirateShip(String criteria) {
 		
 		if(criteria.equals("pirate1")) {
-			return new PirateShip1(null);
+			return new PirateShip1();
 		}
 		if(criteria.equals("pirate2")) {
-			return new PirateShip2(null);
+			return new PirateShip2();
 		}
 	
 		return null;

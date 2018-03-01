@@ -1,16 +1,19 @@
 package columbusGame;
 
 import java.awt.Point;
+import java.util.Random;
 
-public class MoveDynamic implements MoveStrategy {
 
-	RandomPoints r;
+//Some of the pirate ships will be going towards the player ship
+//while others will be using the other movement methods 
+//At least, thats the hope
+
+
+public class MoveTowards implements MoveStrategy  {
+	
 
 	
-	public void movement(PirateShip ship,  Point loc) {
-		loc = new Point();
-		loc = ship.getLocation();
-		
+	public void movement(PirateShip ship, Point loc ) {
 		
 		if (loc.y+1 <= ship.getLocation().y) {
 			ship.moveUp();
@@ -24,8 +27,5 @@ public class MoveDynamic implements MoveStrategy {
 		else if (loc.x >= ship.getLocation().x+1) {
 			ship.moveRight();	
 		}
-		
 	}
-
-
 }

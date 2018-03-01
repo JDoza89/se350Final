@@ -6,8 +6,8 @@ import java.util.Observable;
 public class PirateShip1 extends PirateShip {
 
 
-	public PirateShip1(Observable observable) {
-		super(observable);
+	public PirateShip1() {
+		
 		// TODO Auto-generated constructor stub
 	}
 
