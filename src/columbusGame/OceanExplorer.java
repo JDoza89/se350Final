@@ -81,8 +81,12 @@ public class OceanExplorer extends Application {
 		
 		
 		
-		/** Create ship **/
-		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, stopCoin, laserCoin);
+		/** Create a Columbus ship and decorates it with power ups. **/
+		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, stopCoin, laserCoin);	// create ship
+		PowerUp pause = new PauseShips(ship);	// decorate it with a power up (pause)
+		pause.levelUp();		//activates it
+		String powerUpOne = pause.getPowerUp();	// print the name of the power up
+		System.out.println(powerUpOne);
 		loadShipImages();
 		
 		/** Pirates **/

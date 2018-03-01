@@ -8,10 +8,11 @@ import javafx.scene.image.ImageView;
 /**
  * YellowCoin:just stops the PirateShips from chasing Ship.
  */
-public class YellowCoin implements OceanObjects, PowerUp {
+public class YellowCoin implements OceanObjects{
 	OceanMap ocean;
 	private int xCell, yCell;
 	private RandomPoints rand; // for random points
+	
 	
 	/** YellowCoin needs to know about these.*/
 	Ship cShip;
@@ -24,9 +25,9 @@ public class YellowCoin implements OceanObjects, PowerUp {
 	/**
 	 * Empty constructor.
 	 */
-	public YellowCoin() {
-		
-	}
+	public YellowCoin() { }
+	
+	
 	/**
 	 * YellowCoin needs to know about the location of all these:
 	 * @param points
@@ -62,7 +63,7 @@ public class YellowCoin implements OceanObjects, PowerUp {
 	 * This is called when the ship touches the coin and after some time it
 	 * creates another yellow coin in another cell on the grid.
 	 */
-	private void createYellowCoins() {
+	public void createYellowCoins() {
 		try {
 			Thread.sleep(100);
 
@@ -96,31 +97,12 @@ public class YellowCoin implements OceanObjects, PowerUp {
 	public Point getLocation() {
 		return new Point(xCell, yCell);
 	}
-
-	/**
-	 * LevelUp: PirateShips stop chasing Ship.
-	 */
-	@Override
-	public void levelUp() {
-		if (resetCoinImage()) {
-			stopPirates();
-		}
-		createYellowCoins(); // after leveling up this is called
-	}
-
+	
 	/**
 	 * Resets the coin's image.
 	 */
-	private boolean resetCoinImage() {
+	public boolean resetCoinImage() {
 		OE.yellowCoinImageView.setImage(null); // deletes the coin image.
 		return true;
-	}
-	
-	
-	/**
-	 * Function that deletes the observers/stop pirate ships.
-	 */
-	private void stopPirates() {
-		OE.ship.deleteObservers();
 	}
 }

@@ -3,29 +3,39 @@ package columbusGame;
 import java.awt.Point;
 import java.util.Observable;
 
-public class Ship extends Observable implements OceanObjects {// extends the Observable built in, so that the
-																// pirateSHips can observe the ship's movement and react
+public class Ship extends Observable implements OceanObjects, PowerUp {
 	int xCell;
 	int yCell;
 	int unitSize;
 	OceanMap ocean;
 	Ship ship;
 	PirateShip pirate;
-	
-	
-	YellowCoin coin;	//ship needs to know about coin?
+	PauseShips bomb;
+
+	YellowCoin coin;
 	RedCoin laserCoin;
 
-	/* New: coin parameter.*/
+	/**
+	 * Ship knows about these:
+	 * @param xCell
+	 * @param yCell
+	 * @param unitSize
+	 * @param ocean
+	 * @param coin
+	 * @param laserCoin
+	 */
 	public Ship(int xCell, int yCell, int unitSize, OceanMap ocean, YellowCoin coin, RedCoin laserCoin) {
 		this.xCell = xCell;
 		this.yCell = yCell;
 		this.unitSize = unitSize;
 		this.ocean = ocean;
-		this.coin = coin;	// this is new
+		this.coin = coin;
 		this.laserCoin = laserCoin;
 	}
 
+	/**
+	 * Lets the observers know that the ship moved.
+	 */
 	public void movementChanged() {
 		setChanged();
 		notifyObservers();
@@ -36,20 +46,25 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 	// outBoundsException
 	// the ship cannot go off the grid and calls the movementChanged() method after
 	// every change
+	/**
+	 * Ship moves right.
+	 */
 	public void moveRight() {
 		try {
 			if (ocean.getMap()[xCell + 1][yCell] == 0) {
-				xCell++;	
+				xCell++;
 			}
 			touchedCoins();
-		} 
-		catch (IndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 
 		}
 		movementChanged();
 
 	}
 
+	/**
+	 * Ships move left.
+	 */
 	public void moveLeft() {
 		try {
 			if (ocean.getMap()[xCell - 1][yCell] == 0) {
@@ -62,6 +77,9 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 		movementChanged();
 	}
 
+	/**
+	 * Ships move up.
+	 */
 	public void moveUp() {
 		try {
 			if (ocean.getMap()[xCell][yCell - 1] == 0) {
@@ -75,34 +93,44 @@ public class Ship extends Observable implements OceanObjects {// extends the Obs
 
 	}
 
+	/**
+	 * Ships move down.
+	 */
 	public void moveDown() {
 		try {
-			if(ocean.getMap()[xCell][yCell + 1] == 0) {
+			if (ocean.getMap()[xCell][yCell + 1] == 0) {
 				yCell++;
 			}
 			touchedCoins();
-			
+
 		} catch (IndexOutOfBoundsException e) {
 
 		}
 		movementChanged();
 	}
 
+	/**
+	 * Returns the current location of the ship.
+	 */
 	public Point getLocation() {
-		// returns the ship's current location
 		return new Point(xCell, yCell);
 	}
-	
-	
-	
+
 	/**
-	 * Helper function to see after touched.
+	 * Function that checks if the ship has touched either a red or yellow coin.
 	 */
-	private void touchedCoins() {
+	public boolean touchedCoins() {
 		if (this.getLocation().equals(coin.getLocation())) {
-			coin.levelUp();
+			this.deleteObservers();
+			coin.resetCoinImage();
+			coin.createYellowCoins();
+			return true;
 		} else if (this.getLocation().equals(laserCoin.getLocation())) {
-			laserCoin.levelUp();
+			this.deleteObservers();
+			laserCoin.resetCoinImage();
+			laserCoin.createRedCoins();
+			return true;
 		}
+		return false;
 	}
 }

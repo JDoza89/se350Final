@@ -22,6 +22,12 @@ public class RedCoin implements OceanObjects, PowerUp{
 	PirateShip pirate2;
 	
 	/**
+	 * Empty constructor
+	 */
+	public RedCoin() { }
+	
+	
+	/**
 	 * RedCoin object needs to know the location of all these:
 	 * @param points
 	 * @param ocean
@@ -47,17 +53,12 @@ public class RedCoin implements OceanObjects, PowerUp{
 			yCell = rand.generatePoints().y;
 		}
 	}
-	/**
-	 * Empty constructor
-	 */
-	public RedCoin() {
-		
-	}
+	
 	
 	/**
 	 * Create RedCoins on the grid.
 	 */
-	private void createRedCoins() {
+	public void createRedCoins() {
 		try {
 			Thread.sleep(100);
 
@@ -107,7 +108,7 @@ public class RedCoin implements OceanObjects, PowerUp{
 	/**
 	 * Resets the red coin image
 	 */
-	private boolean resetCoinImage() {
+	public boolean resetCoinImage() {
 		OE.redCoinImageView.setImage(null); // deletes the coin image.
 		return true;
 	}
