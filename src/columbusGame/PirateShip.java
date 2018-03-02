@@ -10,6 +10,7 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 	int xCell;
 	int yCell;
 	int unitSize;
+	
 	Point shipLocation;
 	Point pirateLocation;
 	RandomPoints rand;
@@ -23,7 +24,8 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 		rand = new RandomPoints(ocean);
 		// creates new random points and checks to make sure that they are not the same
 		// as the location of ship
-		if (rand.generatePoints() == ((Ship) (observable)).getLocation()) {
+		/**((Ship) (observable)).getLocation()).**/
+		if (rand.generatePoints() == ((Vessel) (observable)).getLocation()) {
 			rand = new RandomPoints(ocean);
 		} else {
 			xCell = rand.generatePoints().x;
@@ -99,7 +101,8 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 		// old pirateLocation back to 0, so the point on the grid is not blocked and
 		// calls movePirate()
 		if (obs instanceof Ship) {
-			shipLocation = ((Ship) obs).getLocation();
+			/** shipLocation = ((Ship) obs).getLocation();.***/
+			shipLocation = ((Vessel) obs).getLocation();
 			ocean.setPoint(xCell, yCell, 0);
 //			movePirate();
 		}
@@ -123,9 +126,7 @@ public class PirateShip implements Observer, OceanObjects, MoveStrategy {
 			} else {
 				moveUp();
 			}
-
 		}
-
 		// sets the point on the grid to 3
 		ocean.setPoint(xCell, yCell, 3);
 	}

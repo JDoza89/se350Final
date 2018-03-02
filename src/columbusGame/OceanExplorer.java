@@ -24,15 +24,9 @@ public class OceanExplorer extends Application {
 	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView;
 	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage;
 	
-	/** Coin related class variables **/
-	ImageView yellowCoinImageView, redCoinImageView;
-	Image yellowCoinImage, redCoinImage;
-	YellowCoin stopCoin;
-	RedCoin laserCoin;
-	/** Coint class stuff end here**/
 	
 	
-	Ship ship;
+	Vessel ship;	
 	Islands island;
 	PirateShip pirate, pirate2;
 	RandomPoints rand;
@@ -69,12 +63,14 @@ public class OceanExplorer extends Application {
 
 		
 		/** Start of Coin object instantiation and stuff. **/
-		laserCoin = new RedCoin(points, oceanGrid, ship, this, island, pirate, pirate2);
-		stopCoin = new YellowCoin(points, oceanGrid, ship, this, island, pirate, pirate2, laserCoin);
-		points.add(stopCoin.getLocation());
-		points.add(laserCoin.getLocation());
-		loadCoinImage();
-		loadRedCoinImage();
+//		laserCoin = new RedCoin(points, oceanGrid, ship, this, island, pirate, pirate2);
+//		stopCoin = new YellowCoin(points, oceanGrid, ship, this, island, pirate, pirate2, laserCoin);
+//		points.add(stopCoin.getLocation());
+//		points.add(laserCoin.getLocation());
+		
+		
+//		loadCoinImage();
+//		loadRedCoinImage();
 		/** End of coin related code **/
 		
 		
@@ -82,19 +78,13 @@ public class OceanExplorer extends Application {
 		
 		
 		/** Create a Columbus ship and decorates it with power ups. **/
-		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, stopCoin, laserCoin);	// create ship
-		PowerUp pause = new PauseShips(ship);	// decorate it with a power up (pause)
-		pause.levelUp();		//activates it
-		String powerUpOne = pause.getPowerUp();	// print the name of the power up
-		System.out.println(powerUpOne);
-		
-		
-		/* Laser power up.*/
-		Lasers lasers = new Lasers(ship);
-		lasers.levelUp();
-		String laserPowerUp = lasers.getPowerUp();
-		System.out.println("PowerUp:" + laserPowerUp);
-		
+//		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, stopCoin, laserCoin);	// create ship
+//		PowerUp newPausableShip = new PausableShip(ship);
+//		newPausableShip.levelUp();
+		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
+//		System.out.println(ship.getDescription());
+//		ship = new PausableShip(ship);
+//		System.out.println(ship.getDescription());
 		
 		
 		loadShipImages();
@@ -108,6 +98,11 @@ public class OceanExplorer extends Application {
 		ship.addObserver(pirate2);
 		loadPirateImages();
 		loadPirate2Images();
+		
+		
+		
+		
+		
 		
 		
 		scene = new Scene(root, 700, 700);
@@ -200,23 +195,23 @@ public class OceanExplorer extends Application {
 	/**
 	 * Loads yellow Coin's image.
 	 */
-	private void loadCoinImage() {
-		yellowCoinImage = new Image("File:src/columbusGame/yellowCoin.png", scale, scale, true, true);
-		yellowCoinImageView = new ImageView(yellowCoinImage);
-		yellowCoinImageView.setX(stopCoin.getLocation().x * scale);
-		yellowCoinImageView.setY(stopCoin.getLocation().y * scale);
-		root.getChildren().add(yellowCoinImageView);
-	}
-	/**
-	 * Loads red coin's image
-	 */
-	private void loadRedCoinImage() {
-		redCoinImage = new Image("File:src/columbusGame/redCoin.png", scale, scale, true, true);
-		redCoinImageView = new ImageView(redCoinImage);
-		redCoinImageView.setX(laserCoin.getLocation().x * scale);
-		redCoinImageView.setY(laserCoin.getLocation().y * scale);
-		root.getChildren().add(redCoinImageView);
-	}
+//	private void loadCoinImage() {
+//		yellowCoinImage = new Image("File:src/columbusGame/yellowCoin.png", scale, scale, true, true);
+//		yellowCoinImageView = new ImageView(yellowCoinImage);
+//		yellowCoinImageView.setX(stopCoin.getLocation().x * scale);
+//		yellowCoinImageView.setY(stopCoin.getLocation().y * scale);
+//		root.getChildren().add(yellowCoinImageView);
+//	}
+//	/**
+//	 * Loads red coin's image
+//	 */
+//	private void loadRedCoinImage() {
+//		redCoinImage = new Image("File:src/columbusGame/redCoin.png", scale, scale, true, true);
+//		redCoinImageView = new ImageView(redCoinImage);
+//		redCoinImageView.setX(laserCoin.getLocation().x * scale);
+//		redCoinImageView.setY(laserCoin.getLocation().y * scale);
+//		root.getChildren().add(redCoinImageView);
+//	}
 	
 	
 	private void startSailing() {
@@ -256,16 +251,15 @@ public class OceanExplorer extends Application {
 				 * load the ExplosionImages, which changes the shipImageView and
 				 * pirateShipImageView to an explosion
 				 */
-				if (ship.getLocation().equals(pirate.getLocation())) {
-					loadExplosionImages();
-
-				}
-				if (ship.getLocation().equals(pirate2.getLocation())) {
-					loadExplosionImages2();
-				}
+				// if (ship.getLocation().equals(pirate.getLocation())) {
+				// loadExplosionImages();
+				//
+				// }
+				// if (ship.getLocation().equals(pirate2.getLocation())) {
+				// loadExplosionImages2();
+				// }
 			}
 		});
-
 	}
 
 	public static void main(String[] args) {

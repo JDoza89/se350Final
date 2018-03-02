@@ -1,7 +1,7 @@
 package columbusGame;
 
 public class MoveDynamic implements MoveStrategy{
-	Ship cShip;
+	Vessel cShip;
 	OceanMap ocean;
 	int xCell, yCell;
 	
