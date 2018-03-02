@@ -87,6 +87,16 @@ public class OceanExplorer extends Application {
 		pause.levelUp();		//activates it
 		String powerUpOne = pause.getPowerUp();	// print the name of the power up
 		System.out.println(powerUpOne);
+		
+		
+		/* Laser power up.*/
+		Lasers lasers = new Lasers(ship);
+		lasers.levelUp();
+		String laserPowerUp = lasers.getPowerUp();
+		System.out.println("PowerUp:" + laserPowerUp);
+		
+		
+		
 		loadShipImages();
 		
 		/** Pirates **/

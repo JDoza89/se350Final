@@ -84,17 +84,6 @@ public class RedCoin implements OceanObjects, PowerUp{
 		OE.root.getChildren().add(OE.redCoinImageView);
 	}
 	
-	/**
-	 * Ship, levels up, resets the RedCoin's image and then activates laser?
-	 */
-	@Override
-	public void levelUp() {
-		if (resetCoinImage()) {
-			
-		}
-		createRedCoins();
-	}
-
 	
 	/**
 	 * Returns the current location of the RedCoin

@@ -1,32 +1,45 @@
 package columbusGame;
 
 import java.awt.Point;
-
+/**
+ * Concrete decorator Laser class for ship.
+ *
+ */
 public class Lasers extends ShipDecorator{
-
+	Ship cShip;
+	Point location;
+	/**
+	 * Decorates Columbus's ship with laser power up.
+	 * @param ship
+	 */
 	public Lasers(Ship ship) {
 		super(ship);
+		this.cShip = ship;
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+	/**
+	 * Levels up ship.
+	 */
 	public void levelUp() {
 		// TODO Auto-generated method stub
-		
+		if(cShip.touchedCoins()) {
+			
+		}
 	}
 
-	@Override
+	/**
+	 * Returns the name of the power up.
+	 */
 	public String getPowerUp() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Laser power up";
 	}
 
-	@Override
+	/**
+	 * Returns the location where the ship touched the red coin.
+	 */
 	public Point getLocation() {
-		// TODO Auto-generated method stub
-		return null;
+		location = cShip.getLocation();
+		return location;
 	}
-	
-	
-
 }

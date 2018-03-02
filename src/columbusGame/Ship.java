@@ -121,12 +121,14 @@ public class Ship extends Observable implements OceanObjects, PowerUp {
 	 */
 	public boolean touchedCoins() {
 		if (this.getLocation().equals(coin.getLocation())) {
+			System.out.println("Touched yellow coin");
 			this.deleteObservers();
 			coin.resetCoinImage();
 			coin.createYellowCoins();
 			return true;
 		} else if (this.getLocation().equals(laserCoin.getLocation())) {
-			this.deleteObservers();
+			System.out.println("Touched red coin");
+//			this.deleteObservers();
 			laserCoin.resetCoinImage();
 			laserCoin.createRedCoins();
 			return true;
