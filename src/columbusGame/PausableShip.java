@@ -3,8 +3,6 @@ package columbusGame;
 import java.awt.Point;
 /**
  * Concrete decorator
- * @author juliolama
- *
  */
 public class PausableShip extends ShipDecorator{
 	Vessel navigable;
