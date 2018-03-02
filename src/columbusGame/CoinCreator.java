@@ -14,4 +14,6 @@ public abstract class CoinCreator {
 	abstract Point getLocationOfCoin();
 
 	abstract void resetCoinImage();
+	
+	abstract void loadCoinImage();
 }

@@ -1,4 +1,5 @@
 package columbusGame;
+
 import java.awt.Point;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -23,17 +24,17 @@ public class OceanExplorer extends Application {
 	AnchorPane root;
 	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView;
 	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage;
-	
-	
-	
-	Vessel ship;	
+
+	Vessel ship;
+	CoinCreator yellowCoin;
+	CoinCreator redCoin;
+
 	Islands island;
 	PirateShip pirate, pirate2;
 	RandomPoints rand;
 	Button button;
 	Point r;
 	MonsterArea area;
-	
 
 	HashSet<Point> points;
 
@@ -41,12 +42,11 @@ public class OceanExplorer extends Application {
 	public void start(Stage oceanStage) throws Exception {
 		oceanGrid = OceanMap.setInstance(dimension);
 		Point startPoint = oceanGrid.getStartPoint();
-//		HashSet<Point> points = new HashSet<Point>();
-		points = new HashSet<Point>();	// changed to this
+		points = new HashSet<Point>();
 		points.add(new Point(startPoint.x, startPoint.y));
 		root = new AnchorPane();
 		drawGrid();
-		
+
 		/** Creates 10 islands. **/
 		int counter = 0;
 		while (counter < 10) {
@@ -61,34 +61,11 @@ public class OceanExplorer extends Application {
 			}
 		}
 
-		
-		/** Start of Coin object instantiation and stuff. **/
-//		laserCoin = new RedCoin(points, oceanGrid, ship, this, island, pirate, pirate2);
-//		stopCoin = new YellowCoin(points, oceanGrid, ship, this, island, pirate, pirate2, laserCoin);
-//		points.add(stopCoin.getLocation());
-//		points.add(laserCoin.getLocation());
-		
-		
-//		loadCoinImage();
-//		loadRedCoinImage();
-		/** End of coin related code **/
-		
-		
-		
-		
-		
-		/** Create a Columbus ship and decorates it with power ups. **/
-//		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid, stopCoin, laserCoin);	// create ship
-//		PowerUp newPausableShip = new PausableShip(ship);
-//		newPausableShip.levelUp();
+
+		// create a cc ship.
 		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
-//		System.out.println(ship.getDescription());
-//		ship = new PausableShip(ship);
-//		System.out.println(ship.getDescription());
-		
-		
 		loadShipImages();
-		
+
 		/** Pirates **/
 		pirate = new PirateShip(ship);
 		points.add(pirate.getLocation());
@@ -98,13 +75,23 @@ public class OceanExplorer extends Application {
 		ship.addObserver(pirate2);
 		loadPirateImages();
 		loadPirate2Images();
+
+		/** Create coins. */
+		yellowCoin = new YellowCoin(this);
+		yellowCoin.loadCoinImage();
+		System.out.println(yellowCoin.getDescription());
+		redCoin = new RedCoin(this);
+		redCoin.loadCoinImage();
+		System.out.println(redCoin.getDescription());
+
+		/**
+		 * Decorate the ship to interact with the coins and obtain additional
+		 * functionality.
+		 **/
+		ship = new PausableShip(ship, this);
+		ship = new LaserShip(ship, this);
 		
-		
-		
-		
-		
-		
-		
+
 		scene = new Scene(root, 700, 700);
 		oceanStage.setTitle("Columbus Game");
 		oceanStage.setScene(scene);
@@ -191,29 +178,7 @@ public class OceanExplorer extends Application {
 		root.getChildren().add(pirate2ImageView);
 
 	}
-	
-	/**
-	 * Loads yellow Coin's image.
-	 */
-//	private void loadCoinImage() {
-//		yellowCoinImage = new Image("File:src/columbusGame/yellowCoin.png", scale, scale, true, true);
-//		yellowCoinImageView = new ImageView(yellowCoinImage);
-//		yellowCoinImageView.setX(stopCoin.getLocation().x * scale);
-//		yellowCoinImageView.setY(stopCoin.getLocation().y * scale);
-//		root.getChildren().add(yellowCoinImageView);
-//	}
-//	/**
-//	 * Loads red coin's image
-//	 */
-//	private void loadRedCoinImage() {
-//		redCoinImage = new Image("File:src/columbusGame/redCoin.png", scale, scale, true, true);
-//		redCoinImageView = new ImageView(redCoinImage);
-//		redCoinImageView.setX(laserCoin.getLocation().x * scale);
-//		redCoinImageView.setY(laserCoin.getLocation().y * scale);
-//		root.getChildren().add(redCoinImageView);
-//	}
-	
-	
+
 	private void startSailing() {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent ke) {
@@ -251,13 +216,13 @@ public class OceanExplorer extends Application {
 				 * load the ExplosionImages, which changes the shipImageView and
 				 * pirateShipImageView to an explosion
 				 */
-				// if (ship.getLocation().equals(pirate.getLocation())) {
-				// loadExplosionImages();
-				//
-				// }
-				// if (ship.getLocation().equals(pirate2.getLocation())) {
-				// loadExplosionImages2();
-				// }
+				if (ship.getLocation().equals(pirate.getLocation())) {
+					loadExplosionImages();
+
+				}
+				if (ship.getLocation().equals(pirate2.getLocation())) {
+					loadExplosionImages2();
+				}
 			}
 		});
 	}

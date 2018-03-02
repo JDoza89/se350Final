@@ -2,20 +2,19 @@ package columbusGame;
 
 import java.awt.Point;
 
-public class Ship extends Vessel{
+public class Ship extends Vessel {
 	int xCell;
 	int yCell;
 	int unitSize;
 	OceanMap ocean;
-	
+
 	public Ship(int xCell, int yCell, int unitSize, OceanMap ocean) {
 		this.xCell = xCell;
 		this.yCell = yCell;
 		this.unitSize = unitSize;
 		this.ocean = ocean;
 	}
-	
-	
+
 	@Override
 	void moveRight() {
 		try {
@@ -25,7 +24,7 @@ public class Ship extends Vessel{
 		} catch (IndexOutOfBoundsException e) {
 
 		}
-		
+
 		movementChanged();
 	}
 
@@ -38,7 +37,7 @@ public class Ship extends Vessel{
 		} catch (IndexOutOfBoundsException e) {
 
 		}
-		
+
 		movementChanged();
 	}
 
@@ -51,7 +50,7 @@ public class Ship extends Vessel{
 		} catch (IndexOutOfBoundsException e) {
 
 		}
-		
+
 		movementChanged();
 	}
 
@@ -67,12 +66,11 @@ public class Ship extends Vessel{
 		}
 		movementChanged();
 	}
-	
+
 	public void movementChanged() {
 		setChanged();
 		notifyObservers();
 	}
-
 
 	@Override
 	public Point getLocation() {
@@ -80,9 +78,11 @@ public class Ship extends Vessel{
 		return new Point(xCell, yCell);
 	}
 
-
+	/**
+	 * Returns the current state of the ship. With power up or not.
+	 */
 	public String getDescription() {
-		description = "Columbus ship";	// description is already in vessel.
+		description = "Columbus ship"; // description is already in vessel.
 		return description;
 	}
 }
