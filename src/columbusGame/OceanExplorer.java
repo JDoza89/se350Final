@@ -25,6 +25,10 @@ public class OceanExplorer extends Application {
 	ImageView shipImageView, islandImageView, pirateImageView, pirate2ImageView, explosionImageView;
 	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage;
 
+	/* A Vessel can be any state of our Ship. 
+	 * The regular state and the two states after having power ups.
+	 * CoinCreator creates two coins on the grid.
+	 */
 	Vessel ship;
 	CoinCreator yellowCoin;
 	CoinCreator redCoin;
@@ -62,11 +66,11 @@ public class OceanExplorer extends Application {
 		}
 
 
-		// create a cc ship.
+		/* Create a Columbus ship. */
 		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
 		loadShipImages();
 
-		/** Pirates **/
+		/* Two Pirates. */
 		pirate = new PirateShip(ship);
 		points.add(pirate.getLocation());
 		pirate2 = new PirateShip(ship);
@@ -76,20 +80,19 @@ public class OceanExplorer extends Application {
 		loadPirateImages();
 		loadPirate2Images();
 
-		/** Create coins. */
+		/* Create two coins: YellowCoin and RedCoin to interact with the Ship.*/
 		yellowCoin = new YellowCoin(this);
 		yellowCoin.loadCoinImage();
-		System.out.println(yellowCoin.getDescription());
 		redCoin = new RedCoin(this);
 		redCoin.loadCoinImage();
-		System.out.println(redCoin.getDescription());
 
-		/**
-		 * Decorate the ship to interact with the coins and obtain additional
-		 * functionality.
-		 **/
+		/*
+		 * We decorate our Ship and now it can interact with coins and the pirates.
+		 */
 		ship = new PausableShip(ship, this);
-		ship = new LaserShip(ship, this);
+//		System.out.println(ship.getDescription());	// prints the new state of the ship.
+		ship = new BombardierShip(ship, this);
+//		System.out.println(ship.getDescription());	// prints the new state of the ship.
 		
 
 		scene = new Scene(root, 700, 700);

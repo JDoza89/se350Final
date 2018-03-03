@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * Coin object
+ * YellowCoin object.
  */
 public class YellowCoin extends CoinCreator {
 	ImageView coinImageview;
@@ -15,21 +15,28 @@ public class YellowCoin extends CoinCreator {
 	RandomPoints random;
 	Point yCoinLocation;
 	int xCell, yCell;
+	Islands island;
+	CoinCreator rCoin;
+	PirateShip pirate1, pirate2;
 	/**
 	 * Creates one coin on the grid.
 	 * @param oceanE
 	 */
 	public YellowCoin(OceanExplorer oceanE) {
 		ocean = oceanE;
+		pirate1 = ocean.pirate;
+		pirate2 = ocean.pirate2;
+		island = ocean.island;
+		rCoin = ocean.redCoin;
 		random = new RandomPoints(ocean.oceanGrid);
 		xCell = random.generatePoints().x;
 		yCell = random.generatePoints().y;
 		yCoinLocation = new Point(xCell, yCell);
-		if(yCoinLocation.equals(ocean.ship.getLocation()) || yCoinLocation.equals(ocean.island.getLocation()) 
-				|| yCoinLocation.equals(ocean.pirate.getLocation()) || yCoinLocation.equals(ocean.pirate2.getLocation())) {
+		if((yCoinLocation.equals(ocean.ship.getLocation()) && yCoinLocation.equals(island.getLocation()) 
+				&& yCoinLocation.equals(pirate1.getLocation()) && yCoinLocation.equals(pirate2.getLocation()))) {
 			xCell = random.generatePoints().x;
 			yCell = random.generatePoints().y;
-			yCoinLocation = new Point(xCell,yCell);
+			yCoinLocation = new Point(xCell, yCell);
 		}
 	}
 	

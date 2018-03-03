@@ -7,7 +7,6 @@ import java.awt.Point;
  */
 public class PausableShip extends ShipDecorator {
 	Vessel navigable;
-//	CoinCreator coin;
 	YellowCoin coin;
 	OceanExplorer OE;
 
@@ -21,7 +20,6 @@ public class PausableShip extends ShipDecorator {
 	void moveRight() {
 		navigable.moveRight();
 		if (coin.getLocationOfCoin().equals(this.getLocation())) {
-			// System.out.println("Pausable touched coin.");
 			navigable.deleteObservers();
 			coin.resetCoinImage();
 			coin.createCoin();
@@ -32,7 +30,6 @@ public class PausableShip extends ShipDecorator {
 	void moveLeft() {
 		navigable.moveLeft();
 		if (coin.getLocationOfCoin().equals(this.getLocation())) {
-			// System.out.println("Pausable touched coin.");
 			navigable.deleteObservers();
 			coin.resetCoinImage();
 			coin.createCoin();
@@ -43,7 +40,6 @@ public class PausableShip extends ShipDecorator {
 	void moveUp() {
 		navigable.moveUp();
 		if (coin.getLocationOfCoin().equals(this.getLocation())) {
-			// System.out.println("Pausable touched coin.");
 			navigable.deleteObservers();
 			coin.resetCoinImage();
 			coin.createCoin();
@@ -54,7 +50,6 @@ public class PausableShip extends ShipDecorator {
 	void moveDown() {
 		navigable.moveDown();
 		if (coin.getLocationOfCoin().equals(this.getLocation())) {
-			// System.out.println("Pausable touched coin.");
 			navigable.deleteObservers();
 			coin.resetCoinImage();
 			coin.createCoin();
@@ -68,6 +63,6 @@ public class PausableShip extends ShipDecorator {
 
 	@Override
 	public String getDescription() {
-		return navigable.getDescription() + " with Pausable power up.";
+		return navigable.getDescription() + " freezes PirateShips.";
 	}
 }

@@ -1,11 +1,12 @@
 package columbusGame;
 
 import java.awt.Point;
+
 /**
- * Concrete decorator Laser class for ship.
- *
+ * Concrete decorator class.<br/>
+ * Ship can interact with the RedCoin and get additional stuff.
  */
-public class LaserShip extends ShipDecorator{
+public class BombardierShip extends ShipDecorator{
 	Vessel navigable;
 	RedCoin coin;
 	OceanExplorer OE;
@@ -15,10 +16,11 @@ public class LaserShip extends ShipDecorator{
 	 * @param navigable
 	 * @param oceanE
 	 */
-	public LaserShip(Vessel navigable, OceanExplorer oceanE) {
+	public BombardierShip(Vessel navigable, OceanExplorer oceanE) {
 		this.navigable = navigable;
 		this.OE = oceanE;
 		coin = (RedCoin) OE.redCoin;
+
 	}
 	
 	/**
@@ -27,7 +29,7 @@ public class LaserShip extends ShipDecorator{
 	@Override
 	public String getDescription() {
 		// TODO Auto-generated method stub
-		return navigable.getDescription() + " with laser power up.";
+		return navigable.getDescription() + " with rockets.";
 	}
 
 	@Override

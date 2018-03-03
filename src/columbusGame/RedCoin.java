@@ -12,25 +12,27 @@ public class RedCoin extends CoinCreator {
 	RandomPoints random;
 	Point rCoinLocation;
 	int xCell, yCell;
+	Islands island;
+	PirateShip pirate1, pirate2;
 
 	/**
 	 * Creates one RedCoin on the grid.
-	 * 
 	 * @param oceanE
 	 */
-	/*
-	 * This constructor does not check the location of red coin because yellow is
-	 * being created face so based off of this it will create itself somewhere else.
-	 */
+
+	 //This constructor does not check the location of red coin because yellow is
+	 //being created face so based off of this it will create itself somewhere else ??
 	public RedCoin(OceanExplorer oceanE) {
 		ocean = oceanE;
+		island = ocean.island;
+		pirate1 = ocean.pirate;
+		pirate2 = ocean.pirate2;
 		random = new RandomPoints(ocean.oceanGrid);
 		xCell = random.generatePoints().x;
 		yCell = random.generatePoints().y;
 		rCoinLocation = new Point(xCell, yCell);
-		if (rCoinLocation.equals(ocean.ship.getLocation()) || rCoinLocation.equals(ocean.island.getLocation())
-				|| rCoinLocation.equals(ocean.pirate.getLocation()) || rCoinLocation.equals(ocean.pirate2.getLocation())
-				|| rCoinLocation.equals(ocean.yellowCoin.getLocationOfCoin())) {
+		if ((rCoinLocation.equals(ocean.ship.getLocation()) || rCoinLocation.equals(island.getLocation())
+				|| rCoinLocation.equals(pirate1.getLocation()) || rCoinLocation.equals(pirate2.getLocation()))){
 			xCell = random.generatePoints().x;
 			yCell = random.generatePoints().y;
 			rCoinLocation = new Point(xCell, yCell);
@@ -82,7 +84,7 @@ public class RedCoin extends CoinCreator {
 	}
 
 	public String getDescription() {
-		coinDescription = "RedCoin:\nProvides the Ship the ability to destroy ships.";
+		coinDescription = "RedCoin:\nProvides the Ship the ability to stop and destroy ships.";
 		return coinDescription;
 	}
 }
