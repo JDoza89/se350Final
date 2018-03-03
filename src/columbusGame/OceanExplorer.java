@@ -89,7 +89,7 @@ public class OceanExplorer extends Application {
 		/*
 		 * We decorate our Ship and now it can interact with coins and the pirates.
 		 */
-		ship = new PausableShip(ship, this);
+		ship = new FreezerShip(ship, this);
 //		System.out.println(ship.getDescription());	// prints the new state of the ship.
 		ship = new BombardierShip(ship, this);
 //		System.out.println(ship.getDescription());	// prints the new state of the ship.

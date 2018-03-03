@@ -5,12 +5,12 @@ import java.awt.Point;
 /**
  * Concrete decorator
  */
-public class PausableShip extends ShipDecorator {
+public class FreezerShip extends ShipDecorator {
 	Vessel navigable;
 	YellowCoin coin;
 	OceanExplorer OE;
 
-	public PausableShip(Vessel navigable, OceanExplorer oceanE) {
+	public FreezerShip(Vessel navigable, OceanExplorer oceanE) {
 		this.navigable = navigable;
 		this.OE = oceanE;
 		coin = (YellowCoin) OE.yellowCoin;
