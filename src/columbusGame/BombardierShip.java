@@ -90,7 +90,7 @@ public class BombardierShip extends ShipDecorator{
 	}
 	
 	/**
-	 * Loads explosion image for a pirate.
+	 * Loads explosion images for PirateShips.
 	 */
 	private void explodeShip() {
 		explosion = new Image("File:src/columbusGame/boom.png", this.OE.scale, this.OE.scale, true, true);
