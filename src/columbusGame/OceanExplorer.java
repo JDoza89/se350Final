@@ -26,7 +26,7 @@ public class OceanExplorer extends Application {
 	Image shipImage, islandImage, pirateImage, pirate2Image, explosionImage;
 
 	/* A Vessel can be any state of our Ship. 
-	 * The regular state and the two states after having power ups.
+	 * The regular state and or the two new states after having power ups.
 	 * CoinCreator creates two coins on the grid.
 	 */
 	Vessel ship;
@@ -69,6 +69,7 @@ public class OceanExplorer extends Application {
 
 		/* Create a Columbus ship. */
 		ship = new Ship(startPoint.x, startPoint.y, scale, oceanGrid);
+		points.add(ship.getLocation());
 		loadShipImages();
 
 		/* Two Pirates. */
@@ -83,24 +84,20 @@ public class OceanExplorer extends Application {
 
 		/* Create two coins: YellowCoin and RedCoin to interact with the Ship.*/
 		yellowCoin = new YellowCoin(this);
+		points.add(yellowCoin.getLocationOfCoin());
 		yellowCoin.loadCoinImage();
 		redCoin = new RedCoin(this);
+		points.add(redCoin.getLocationOfCoin());
 		redCoin.loadCoinImage();
 
-		/*
-		 * We decorate our Ship and now it can interact with coins and the pirates.
-		 * Use one by one...
+
+		/**
+		 * Power up the ship one by one.
 		 */
 		ship = new FreezerShip(ship, this);
 		System.out.println(ship.getDescription());	// prints the new state of the ship.
 //		ship = new BombardierShip(ship, this);
 //		System.out.println(ship.getDescription());	// prints the new state of the ship.
-		
-		
-		
-		
-		
-		
 		
 		scene = new Scene(root, 700, 700);
 		oceanStage.setTitle("Columbus Game");

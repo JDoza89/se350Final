@@ -99,7 +99,7 @@ public class YellowCoin extends CoinCreator {
 		coinImageview = new ImageView(coinImage);
 		coinImageview.setX(this.getLocationOfCoin().getX() * ocean.scale);
 		coinImageview.setY(this.getLocationOfCoin().getY() * ocean.scale);
-		ocean.root.getChildren().add(coinImageview);	
+		ocean.root.getChildren().add(coinImageview);
 	}
 
 }
